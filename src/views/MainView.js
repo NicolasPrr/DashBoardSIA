@@ -5,7 +5,7 @@ import {
   averagePerTopology
 } from "../helpers/process";
 import TimeLine from "../componets/TimeLine";
-import { Divider } from "antd";
+import { Divider, Row, Col } from "antd";
 
 export default class componentName extends Component {
   constructor(props) {
@@ -26,11 +26,16 @@ export default class componentName extends Component {
     return (
       <div>
         <Divider />
-        <TimeLine
-          periods={this.state.periods}
-          current={this.state.current}
-          changePeriod={this.changePeriod}
-        />
+        <Row>
+          <Col span={4}>
+            <TimeLine
+              periods={this.state.periods}
+              current={this.state.current}
+              changePeriod={this.changePeriod}
+            />
+          </Col>
+          <Col>col-asdad12</Col>
+        </Row>
       </div>
     );
   }
