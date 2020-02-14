@@ -18,7 +18,7 @@ export default class MainInput extends Component {
     this.state = {
       text: "",
       loading: false
-    };  
+    };
   }
   render() {
     return (
@@ -34,9 +34,8 @@ export default class MainInput extends Component {
               <Title level={3}>Instrucciones</Title>
               <li>
                 <Text>
-                  {" "}
-                  Ir a la historia academica del SIA desde el navegador{" "}
-                </Text>{" "}
+                  Ir a la historia academica del SIA desde el navegador
+                </Text>
                 <Text strong>Google Chrome</Text>
               </li>
               <li>
@@ -57,15 +56,15 @@ export default class MainInput extends Component {
                   <Text mark> CRTL + V.</Text>
                 </Text>
               </li>
-              <br/>
-              <Text type='secondary'>
+              <br />
+              <Text type="secondary">
                 La aplicación permite editar , agregar y borrar asignaturas.
               </Text>
               <Divider />
               <TextArea
-                autoSize={true}
+                autosize={{ minRows: 10 ,maxRows: 15}}
                 placeholder="Ingresa la historia academcia acá"
-                style={{ minHeight: 300 }}
+                // style={{ minHeight: 300 }}
                 onChange={e => this.onChange(e)}
               />
 
@@ -86,16 +85,21 @@ export default class MainInput extends Component {
     let data = this.state.text;
     data = data.split(/\r\n|\r|\n/);
     let first_line = data[0];
-    first_line = data[0].toLowerCase();
+    if(data[0]=== 'Carga Terminada'){
+      first_line = data[1]
+    }else{
+      first_line = data[0]
+    }
+    first_line = first_line.toLowerCase()
     let str_compare = "Logo UniversidadPORTAL DE SERVICIOS ACADÉMICOS";
     str_compare = str_compare.toLowerCase();
     if (!first_line.includes(str_compare)) {
       message.error("Un error ha ocurrido, por favor siga las instrucciones");
     } else {
       message.success("Se ha recibido los datos con exito, por favor espere");
-      this.setState({loading: true})
+      this.setState({ loading: true });
       setTimeout(() => {
-          this.props.onSuccess(data)
+        this.props.onSuccess(data);
       }, 2000);
     }
   };

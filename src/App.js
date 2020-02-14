@@ -3,25 +3,27 @@ import { Layout } from "antd";
 import Header from "./componets/Header";
 import Footer from "./componets/Footer";
 import MainInput from "./views/MainInput";
-import setData from './helpers/history'
+import MainView from "./views/MainView";
+import setData from "./helpers/history";
 
 const { Content } = Layout;
 
+const Switcher = ({ type, malla_function, history }) => {
+  console.log("history:" , history)
+  if (type === "input") return <MainInput onSuccess={malla_function} />;
+  if (type === "malla") return <MainView periods={[...history.periods]} />;
+  return <div>Nothing to do :( :( : )</div>;
+};
 
-const Switcher = ({type, malla_function}) => {
-  
-  if(type === 'input') return <MainInput  onSuccess ={malla_function}/>
-  if(type === 'malla') return <div> :( depresion?</div>
-  return <div>Nothing to do :( :( : )</div>
-}
- 
 class App extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      type: 'input',
-      history: null
-    }
+      type: "input",
+      history: null,
+      periods: [],
+     
+    };
   }
 
   render() {
@@ -31,19 +33,25 @@ class App extends React.Component {
           <Header />
           <Content>
             <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
-              <Switcher type ={this.state.type} malla_function = {this.getData}/>
-            </div>  
+              <Switcher
+                type={this.state.type}
+                malla_function={this.getData}
+                history={this.state.history}
+              />
+            </div>
           </Content>
           <Footer />
         </Layout>
       </div>
     );
   }
-  getData = (data)=>{
-    let history = setData(data) 
-    this.setState({history: history, type: 'malla' })
-    
-  }
+  getData = data => {
+    let history = setData(data);
+    console.log("first history:", history)
+    this.setState({ history: history }, () => {
+      this.setState({ type: "malla" });
+    });
+  };
 }
 
 export default App;
