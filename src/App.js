@@ -11,7 +11,8 @@ const { Content } = Layout;
 const Switcher = ({ type, malla_function, history }) => {
   console.log("history:" , history)
   if (type === "input") return <MainInput onSuccess={malla_function} />;
-  if (type === "malla") return <MainView periods={[...history.periods]} />;
+  if (type === "malla") return <MainView  />;
+  // if (type === "malla") return <MainView periods={[...history.periods]} />;
   return <div>Nothing to do :( :( : )</div>;
 };
 
@@ -19,7 +20,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: "input",
+      // type: "input",
+      type: "malla",
       history: null,
       periods: [],
      

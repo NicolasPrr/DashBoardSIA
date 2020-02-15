@@ -5,21 +5,27 @@ import {
   averagePerTopology
 } from "../helpers/process";
 import TimeLine from "../componets/TimeLine";
+import HistoryTable from "../componets/HistoryTable";
 import { Divider, Row, Col } from "antd";
+import { data } from "../helpers/datatest";
+import { Tabs } from "antd";
+const { TabPane } = Tabs;
 
 export default class componentName extends Component {
   constructor(props) {
     super(props);
     this.state = {
       years: [],
-      periods: [],
+      // periods: [],
+      periods: data,
       dataRadar: [],
       current: 0
     };
   }
   componentDidMount() {
     console.log("periodsss:", this.props.periods);
-    this.calculateAll(this.props.periods);
+    // this.calculateAll(this.props.periods);
+    this.calculateAll(this.state.periods);
   }
 
   render() {
@@ -27,14 +33,26 @@ export default class componentName extends Component {
       <div>
         <Divider />
         <Row>
-          <Col span={4}>
+          <Col xs={{ span: 24 }} lg={{ span: 5 }}>
             <TimeLine
               periods={this.state.periods}
               current={this.state.current}
               changePeriod={this.changePeriod}
             />
           </Col>
-          <Col>col-asdad12</Col>
+          <Col xs={{ span: 24 }} lg={{ span: 19 }}>
+            <Tabs onChange={null}>
+              <TabPane tab="Resumen" key="1">
+                <HistoryTable periods={this.state.periods} />
+              </TabPane>
+              <TabPane tab="Table" key="2">
+                Content of Tab Pane 2
+              </TabPane>
+              <TabPane tab="Tab 3" key="3">
+                Content of Tab Pane 3
+              </TabPane>
+            </Tabs>
+          </Col>
         </Row>
       </div>
     );
