@@ -1,5 +1,5 @@
 import React from "react";
-import { Steps, Icon } from "antd";
+import { Steps, Icon, Row, Col, Statistic } from "antd";
 const { Step } = Steps;
 function ReadyIcon() {
   return <Icon type="flag" style={{ fontSize: "20px" }} />;
@@ -36,30 +36,31 @@ function SelectIcon({ PAPPI }) {
   if (PAPPI < 5) return <SmileIcon />;
   return null;
 }
-// function Averages({ PAPPI, PAPA, PA }) {
-//   return (
-//     <div>
-//       <Row gutter={1} justify="start">
-//         <Col span={1}>
-//           <Statistic
-//             title="PAPA"
-//             value={PAPA}
-//             valueStyle={{ color: "#7285AB" }}
-//           />
-//         </Col>
-//         <Col span={1}>
-//           <Statistic title="PAPPI" value={PAPPI}  />
-//         </Col>
-//         <Col span={1}>
-//           <Statistic title="PA" value={PA} />
-//         </Col>
-//       </Row>
-//     </div>
-//   );
-// }
+function Averages({ PAPPI, PAPA, PA }) {
+  return (
+    <div>
+      <Row type='flex' gutter={40} justify="start">
+        <Col>
+          <Statistic
+            title="PAPA"
+            value={PAPA}
+            valueStyle={{ color: "#7285AB" }}
+          />
+        </Col>
+        <Col>
+          <Statistic title="PAPPI" value={PAPPI} />
+        </Col>
+        <Col>
+          <Statistic title="PA" value={PA} />
+        </Col>
+      </Row>
+    </div>
+  );
+}
 
 const SiaTimeLine = ({ periods, current, changePeriod }) => {
   console.log("periods: ", periods);
+  // return null
   return (
     <div>
       <Steps
@@ -72,14 +73,14 @@ const SiaTimeLine = ({ periods, current, changePeriod }) => {
         {Object.keys(periods).map(key => (
           <Step
             title={periods[key].name}
-            description={`PAPA: ${periods[key].PAPA} \nPAPPI: ${periods[key].PAPPI}  PA: ${periods[key].PA}`}
-            // description={
-            //   <Averages
-            //     PAPA={periods[key].PAPA}
-            //     PAPPI={periods[key].PAPPI}
-            //     PA={periods[key].PA}
-            //   />
-            // }
+            // description={`PAPA: ${periods[key].PAPA} \nPAPPI: ${periods[key].PAPPI}  PA: ${periods[key].PA}`}
+            description={
+              <Averages
+                PAPA={periods[key].PAPA}
+                PAPPI={periods[key].PAPPI}
+                PA={periods[key].PA}
+              />
+            }
             key={key}
             icon={<SelectIcon PAPPI={periods[key].PAPPI} />}
           />

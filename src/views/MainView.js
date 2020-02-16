@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Divider, Button } from "antd";
 import {
   calculatePAPPI,
   calculatePAPA,
@@ -6,12 +7,15 @@ import {
 } from "../helpers/process";
 import TimeLine from "../componets/TimeLine";
 import HistoryTable from "../componets/HistoryTable";
-import { Divider, Row, Col } from "antd";
 import { data } from "../helpers/datatest";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
+
 export default class componentName extends Component {
+  PrintButton = () => {
+    return <Button type="primary"> Imprimir</Button>;
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -23,8 +27,6 @@ export default class componentName extends Component {
     };
   }
   componentDidMount() {
-    console.log("periodsss:", this.props.periods);
-    // this.calculateAll(this.props.periods);
     this.calculateAll(this.state.periods);
   }
 
@@ -32,28 +34,21 @@ export default class componentName extends Component {
     return (
       <div>
         <Divider />
-        <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 5 }}>
+            <Tabs onChange={null}>
+              <TabPane tab="Resumen" key="1">
+                  <HistoryTable periods={this.state.periods} />
+              </TabPane>
+              <TabPane tab="Linea del tiempo" key="2">
             <TimeLine
               periods={this.state.periods}
               current={this.state.current}
               changePeriod={this.changePeriod}
             />
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 19 }}>
-            <Tabs onChange={null}>
-              <TabPane tab="Resumen" key="1">
-                <HistoryTable periods={this.state.periods} />
               </TabPane>
-              <TabPane tab="Table" key="2">
-                Content of Tab Pane 2
-              </TabPane>
-              <TabPane tab="Tab 3" key="3">
-                Content of Tab Pane 3
+              <TabPane tab="Analisis" key="3">
+                This is a Analisis
               </TabPane>
             </Tabs>
-          </Col>
-        </Row>
       </div>
     );
   }
