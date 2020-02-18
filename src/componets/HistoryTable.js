@@ -57,7 +57,7 @@ const HistoryTable = ({ periods }) => {
       dataSource={periods}
       pagination={false}
       expandedRowRender={NestedTable}
-      scroll={{x: 350}}
+      scroll={{x: 650}}
       rowKey={record => record.name}
     />
   );

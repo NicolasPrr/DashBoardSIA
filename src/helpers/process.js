@@ -149,6 +149,94 @@ export function averagePerTopology(periods) {
     (creditsOD + creditsOPD)
   ).toFixed(2);
   elective = scorePerCredtis_L / creditsL;
+  elective = elective.toFixed(2);
 
-  return [fundamentation, disciplinar, elective];
+  return [
+    parseFloat(fundamentation),
+    parseFloat(disciplinar),
+    parseFloat(elective)
+  ];
+}
+export function parseObjects(array) {
+  let data = [];
+  array.forEach(element => {
+    let new_element = { ...element };
+    new_element.PAPA = parseFloat(element.PAPA);
+    new_element.PA = parseFloat(element.PA);
+    new_element.PAPPI = parseFloat(element.PAPPI);
+    data.push(new_element);
+  });
+  return data;
+}
+export function getCoursesByType(periods) {
+  let scorePerCredtis_L = 0,
+    scorePerCredtis_OF = 0,
+    scorePerCredtis_OPF = 0,
+    scorePerCredtis_OD = 0,
+    scorePerCredtis_OPD = 0;
+  for (var i = 0; i < periods.length; i++) {
+    const courses = periods[i].courses;
+    for (var j = 0; j < courses.length; j++) {
+      if (courses[j][7] === "L") {
+        scorePerCredtis_L++;
+      }
+
+      if (courses[j][7] === "B") {
+        scorePerCredtis_OF++;
+      }
+      if (courses[j][7] === "O") {
+        scorePerCredtis_OPF++;
+      }
+
+      if (courses[j][7] === "C") {
+        scorePerCredtis_OD++;
+      }
+      if (courses[j][7] === "T") {
+        scorePerCredtis_OPD++;
+      }
+    }
+  }
+  return {
+    elective: scorePerCredtis_L,
+    fundObli: scorePerCredtis_OF,
+    fundOpt: scorePerCredtis_OPF,
+    dispObli: scorePerCredtis_OD,
+    dispOpt: scorePerCredtis_OPD
+  };
+}
+export function getCredtisByType(periods) {
+  let scorePerCredtis_L = 0,
+    scorePerCredtis_OF = 0,
+    scorePerCredtis_OPF = 0,
+    scorePerCredtis_OD = 0,
+    scorePerCredtis_OPD = 0;
+  for (var i = 0; i < periods.length; i++) {
+    const courses = periods[i].courses;
+    for (var j = 0; j < courses.length; j++) {
+      if (courses[j][7] === "L") {
+        scorePerCredtis_L += parseInt(courses[j][8]);
+      }
+
+      if (courses[j][7] === "B") {
+        scorePerCredtis_OF += parseInt(courses[j][8]);
+      }
+      if (courses[j][7] === "O") {
+        scorePerCredtis_OPF += parseInt(courses[j][8]);
+      }
+
+      if (courses[j][7] === "C") {
+        scorePerCredtis_OD += parseInt(courses[j][8]);
+      }
+      if (courses[j][7] === "T") {
+        scorePerCredtis_OPD += parseInt(courses[j][8]);
+      }
+    }
+  }
+  return {
+    elective: scorePerCredtis_L,
+    fundObli: scorePerCredtis_OF,
+    fundOpt: scorePerCredtis_OPF,
+    dispObli: scorePerCredtis_OD,
+    dispOpt: scorePerCredtis_OPD
+  };
 }

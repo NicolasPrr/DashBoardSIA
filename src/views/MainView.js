@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Divider, Button } from "antd";
+import { Divider, Button, Row, Col, Card } from "antd";
 import {
   calculatePAPPI,
   calculatePAPA,
@@ -7,10 +7,15 @@ import {
 } from "../helpers/process";
 import TimeLine from "../componets/TimeLine";
 import HistoryTable from "../componets/HistoryTable";
+import Line from "../componets/nivo/Line";
+import LineBiz from "../componets/biz/Line";
+import RadarChart from "../componets/biz/RadarChart";
+import PieChart from "../componets/biz/PieChart";
+import PieChartCredits from "../componets/biz/PieChartCredits";
+import Stats from "../componets/Stats";
 import { data } from "../helpers/datatest";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
-
 
 export default class componentName extends Component {
   PrintButton = () => {
@@ -34,21 +39,57 @@ export default class componentName extends Component {
     return (
       <div>
         <Divider />
-            <Tabs onChange={null}>
-              <TabPane tab="Resumen" key="1">
-                  <HistoryTable periods={this.state.periods} />
-              </TabPane>
-              <TabPane tab="Linea del tiempo" key="2">
+        <Tabs onChange={null}>
+          <TabPane tab="Todas las materias" key="1">
+            <HistoryTable periods={this.state.periods} />
+          </TabPane>
+          <TabPane tab="Linea del tiempo" key="2">
             <TimeLine
               periods={this.state.periods}
               current={this.state.current}
               changePeriod={this.changePeriod}
             />
-              </TabPane>
-              <TabPane tab="Analisis" key="3">
-                This is a Analisis
-              </TabPane>
-            </Tabs>
+          </TabPane>
+          <TabPane tab="Analisis Nivo" key="3">
+            <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ height: 250 }}>
+                <Line />
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ height: 250 }}>
+                <Line />
+              </Col>
+            </Row>
+          </TabPane>
+          <TabPane tab="Stats" key="4">
+            <div style={{ background: "#ECECEC", padding: "30px" }}>
+              <Stats periods={this.state.periods} />
+              <Row gutter={[20, 20]}>
+                <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+                  <Card title= 'Materias  vistas por tipologia' size='small'>
+                    <PieChart periods={this.state.periods} />
+                  </Card>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+                  <Card size = 'small' title='Promedio por tipología'>
+                    <RadarChart periods={this.state.periods} />
+                  </Card>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+                  <Card size = "small" title="Cantidad de creditos por tipología">
+                    <PieChartCredits periods={this.state.periods} />
+                  </Card>
+                </Col>
+              </Row>
+              <Row gutter={[20, 20]}>
+                <Col>
+                  <Card title = "">
+                    <LineBiz periods={this.state.periods} />
+                  </Card>
+                </Col>
+              </Row>
+            </div>
+          </TabPane>
+        </Tabs>
       </div>
     );
   }
