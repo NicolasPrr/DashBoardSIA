@@ -1,5 +1,5 @@
 import React from "react";
-import { Statistic, Card, Row, Col, Icon, Typography } from "antd";
+import { Statistic, Card, Row, Col, Icon, Typography, Tooltip } from "antd";
 const { Text } = Typography;
 function getStats(periods) {
   let loss = 0,
@@ -65,9 +65,11 @@ const Stats = ({ periods }) => {
     <div style={{ padding: "10px" }}>
       <Row gutter={[20, 10]}>
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
-          <Card>
-            <Statistic title="Cantidad de materias vistas (con nivelacion)" value={total} />
-          </Card>
+          <Tooltip title="No se tiene en cuenta las materias nivelatorias de inglés">
+            <Card>
+              <Statistic title="Cantidad de materias vistas" value={total} />
+            </Card>
+          </Tooltip>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
           <Card>
