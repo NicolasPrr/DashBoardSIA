@@ -5,7 +5,7 @@ import Footer from "./componets/Footer";
 import MainInput from "./views/MainInput";
 import MainView from "./views/MainView";
 import setData from "./helpers/history";
-
+import './App.css'
 const { Content } = Layout;
 
 const Switcher = ({ type, malla_function, history }) => {

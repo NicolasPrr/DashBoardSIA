@@ -240,3 +240,54 @@ export function getCredtisByType(periods) {
     dispOpt: scorePerCredtis_OPD
   };
 }
+export function calculateAll(per) {
+  let periods = [];
+  let creditsPerScore = 0;
+  let totalCredits = 0;
+  let result;
+  let fundamentation;
+  let disciplinar;
+  let elective;
+  let radar;
+  let lost = {};
+  let creditsPerScorePA = 0;
+  let creditsPA = 0;
+  
+  periods = [...per];
+  //nota por tipologia (Electiva, obligatoria fundamental, optativa fundamental, disciplinar obligatoria y optativa disciplinar)
+  //calculo del papi, pappa
+
+  for (var i = 0; i < periods.length; i++) {
+    const PAPPI = calculatePAPPI(periods[i].courses);
+    periods[i].PAPPI = PAPPI;
+
+    result = calculatePAPA(
+      periods[i].courses,
+      creditsPerScore,
+      totalCredits,
+      lost,
+      creditsPerScorePA,
+      creditsPA
+    );
+    periods[i].PAPA = result[0];
+    periods[i].PA = result[6];
+    creditsPerScore = result[1];
+    totalCredits = result[2];
+    lost = result[3];
+    creditsPerScorePA = result[4];
+    creditsPA = result[5];
+    // console.log("result", JSON.stringify(result[3]))
+  }
+
+  [fundamentation, disciplinar, elective] = averagePerTopology(periods);
+
+  radar = [
+    { name: "Fundamentacion", average: parseFloat(fundamentation) },
+    { name: "Disciplinar", average: parseFloat(disciplinar) },
+    { name: "Electiva", average: parseFloat(elective) }
+  ];
+  return{
+    dataRadar: radar,
+    periods: periods
+  }
+}

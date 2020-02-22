@@ -1,4 +1,5 @@
 import React from "react";
+import {connect } from 'react-redux'
 import { Table } from "antd";
 
 const columns = [
@@ -7,14 +8,14 @@ const columns = [
   { title: "PA", dataIndex: "PA", key: "PA" },
   { title: "PAPPI", dataIndex: "PAPPI", key: "PAPI" }
 ];
-const sub_columns = [
+export const sub_columns = [
   { title: "Codigo", dataIndex: "code", key: "code" },
   { title: "Nombre", dataIndex: "name", key: "name",ellipsis: true },
   { title: "Tipo", dataIndex: "type", key: "type" },
   { title: "Creditos", dataIndex: "credits", key: "credits" },
   { title: "Nota", dataIndex: "grade", key: "grade" }
 ];
-function getTypeCourse(str) {
+export function getTypeCourse(str) {
   if (str === "E") return "Nivelación";
   if (str === "C") return "Disciplinar obligatoria";
   if (str === "O") return "Fund. optativa";
@@ -22,7 +23,7 @@ function getTypeCourse(str) {
   if (str === "L") return "Electiva";
   if (str === "B") return "Fund. obligatoria";
 }
-function buildCourses(courses) {
+export function buildCourses(courses) {
   let finalCourses = [];
   courses.forEach(course => {
     finalCourses.push({
@@ -62,5 +63,8 @@ const HistoryTable = ({ periods }) => {
     />
   );
 };
+const mapStateToProps = state =>({
+  periods: state.periods
+})
 
-export default HistoryTable;
+export default connect(mapStateToProps)(HistoryTable);

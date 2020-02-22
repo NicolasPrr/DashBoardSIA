@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from 'react-redux'
 import { Statistic, Card, Row, Col, Icon, Typography, Tooltip } from "antd";
 const { Text } = Typography;
 function getStats(periods) {
@@ -106,5 +107,10 @@ const Stats = ({ periods }) => {
     </div>
   );
 };
+const mapStateToProps =(state)=>(
+  {
+    periods: state.periods
+  }
 
-export default Stats;
+)
+export default connect(mapStateToProps)(Stats);
