@@ -61,6 +61,7 @@ const HistoryTable = ({ periods, current }) => {
       expandedRowRender={NestedTable}
       scroll={{ x: 650 }}
       rowKey={record => record.name}
+      defaultExpandAllRows={true}
     />
   );
 };
