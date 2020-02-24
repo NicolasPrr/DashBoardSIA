@@ -1,4 +1,4 @@
-import { data } from "../../helpers/datatest"; //Periods
+// import { data } from "../../helpers/datatest"; //Periods
 import { calculateAll } from "../../helpers/process";
 
 function newPeriod(name) {
@@ -12,14 +12,15 @@ function newPeriod(name) {
 }
 
 const periods = {
-  periods: data
+  periods: []
 };
 
 const periodReducer = (state = periods, action) => {
+  let period;
   switch (action.type) {
     //add course to period
     case "ADD_PERIOD":
-      const period = newPeriod(action.period);
+      period = newPeriod(action.period);
       return {
         ...state,
         periods: [...state.periods, period]
@@ -30,6 +31,21 @@ const periodReducer = (state = periods, action) => {
         ...state,
         dataRadar: dataRadar,
         periods: periods
+      };
+    case "SET_PERIODS":
+      return {
+        ...state,
+        periods: action.periods
+      };
+    case "DELETE_COURSE":
+      let allPeriods = [...state.periods];
+      period = allPeriods[action.indexPeriod];
+      period.courses = period.courses.filter(item => item[1] !== action.code);
+
+      allPeriods[action.indexPeriod] = {...period};
+      return {
+        ...state,
+        periods: allPeriods
       };
     default:
       return {

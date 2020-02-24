@@ -35,7 +35,7 @@ class Curved extends React.Component {
     });
     const scale={
       name:{
-        alias: "Periodo acadeico"
+        alias: "Periodo academico"
       }
     }
     return (

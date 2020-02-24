@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Divider, Button, Row, Col, Card } from "antd";
 import TimeLine from "../componets/TimeLine";
+import CourseTable from "../componets/CourseTable";
+
 import HistoryTable from "../componets/HistoryTable";
 import Line from "../componets/nivo/Line";
 import LineBiz from "../componets/biz/Line";
@@ -25,8 +27,8 @@ class MainView extends Component {
       current: 0
     };
   }
-
   render() {
+    const currentCourses = this.props.periods[this.state.current].courses
     return (
       <div>
         <Divider />
@@ -35,10 +37,17 @@ class MainView extends Component {
             <HistoryTable />
           </TabPane>
           <TabPane tab="Linea del tiempo" key="2">
-            <TimeLine
-              current={this.state.current}
-              changePeriod={this.changePeriod}
-            />
+            <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 5 }}>
+                <TimeLine changeCurrent={this.changeCurrent} />
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 19 }}>
+                <CourseTable
+                  current={this.state.current}
+                  courses={currentCourses}
+                />
+              </Col>
+            </Row>
           </TabPane>
           <TabPane tab="Analisis Nivo" key="3">
             <Row>
@@ -83,6 +92,9 @@ class MainView extends Component {
       </div>
     );
   }
+  changeCurrent = e => {
+    this.setState({ current: e - 1 });
+  };
 }
 const mapStateToProps = state => ({
   periods: state.periods

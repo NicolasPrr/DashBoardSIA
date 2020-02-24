@@ -39,7 +39,7 @@ function SelectIcon({ PAPPI }) {
   if (PAPPI < 4) return <MehIcon />;
   if (PAPPI < 5) return <SmileIcon />;
 
-  return <SadIcon/>;
+  return <SadIcon />;
 }
 function Averages({ PAPPI, PAPA, PA }) {
   return (
@@ -116,9 +116,8 @@ class SiaTimeLine extends React.Component {
   changePeriod = e => {
     this.setState({ current: e });
     const length = this.props.periods.length;
-    console.log("current", e);
-    console.log("length", length);
     if (e === length + 1) this.activateModal();
+    if (e > 0 && e < length + 1) this.props.changeCurrent(e);
   };
   activateModal = () => {
     this.setState({ visible: true });

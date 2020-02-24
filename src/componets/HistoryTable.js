@@ -1,5 +1,5 @@
 import React from "react";
-import {connect } from 'react-redux'
+import { connect } from "react-redux";
 import { Table } from "antd";
 
 const columns = [
@@ -10,7 +10,7 @@ const columns = [
 ];
 export const sub_columns = [
   { title: "Codigo", dataIndex: "code", key: "code" },
-  { title: "Nombre", dataIndex: "name", key: "name",ellipsis: true },
+  { title: "Nombre", dataIndex: "name", key: "name", ellipsis: true },
   { title: "Tipo", dataIndex: "type", key: "type" },
   { title: "Creditos", dataIndex: "credits", key: "credits" },
   { title: "Nota", dataIndex: "grade", key: "grade" }
@@ -44,27 +44,28 @@ function NestedTable(record) {
       columns={sub_columns}
       dataSource={finalCourses}
       pagination={false}
-      style={{margin:5}}
+      style={{ margin: 5 }}
       rowKey={record => record.code}
     />
   );
 }
-const HistoryTable = ({ periods }) => {
+const HistoryTable = ({ periods, current }) => {
+  console.log(current)
   return (
     <Table
       bordered
-      size='small'
+      size="small"
       columns={columns}
       dataSource={periods}
       pagination={false}
       expandedRowRender={NestedTable}
-      scroll={{x: 650}}
+      scroll={{ x: 650 }}
       rowKey={record => record.name}
     />
   );
 };
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
   periods: state.periods
-})
+});
 
 export default connect(mapStateToProps)(HistoryTable);
