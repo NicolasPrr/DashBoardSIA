@@ -6,8 +6,8 @@ const SET_PERIODS = "SET_PERIODS";
 export function addCourse(index, course) {
   return {
     type: ADD_COURSE,
-    course: course,
-    index: index
+    indexPeriod: index,
+    course: course
   };
 }
 export function deleteCourse(indexPeriod, code) {

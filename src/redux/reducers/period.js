@@ -17,6 +17,7 @@ const periods = {
 
 const periodReducer = (state = periods, action) => {
   let period;
+  let allPeriods
   switch (action.type) {
     //add course to period
     case "ADD_PERIOD":
@@ -38,9 +39,19 @@ const periodReducer = (state = periods, action) => {
         periods: action.periods
       };
     case "DELETE_COURSE":
-      let allPeriods = [...state.periods];
+      allPeriods = [...state.periods];
       period = allPeriods[action.indexPeriod];
       period.courses = period.courses.filter(item => item[1] !== action.code);
+
+      allPeriods[action.indexPeriod] = {...period};
+      return {
+        ...state,
+        periods: allPeriods
+      };
+    case "ADD_COURSE":
+      allPeriods = [...state.periods];
+      period = allPeriods[action.indexPeriod];
+      period.courses.push(action.course)
 
       allPeriods[action.indexPeriod] = {...period};
       return {
