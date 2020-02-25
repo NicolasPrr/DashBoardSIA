@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/DashBoardSIA/static/css/main.d1b05096.chunk.css",
+    "main.js": "/DashBoardSIA/static/js/main.f9abc16a.chunk.js",
+    "main.js.map": "/DashBoardSIA/static/js/main.f9abc16a.chunk.js.map",
+    "runtime-main.js": "/DashBoardSIA/static/js/runtime-main.6e735e5b.js",
+    "runtime-main.js.map": "/DashBoardSIA/static/js/runtime-main.6e735e5b.js.map",
+    "static/css/2.7a71a33d.chunk.css": "/DashBoardSIA/static/css/2.7a71a33d.chunk.css",
+    "static/js/2.ac30ee1b.chunk.js": "/DashBoardSIA/static/js/2.ac30ee1b.chunk.js",
+    "static/js/2.ac30ee1b.chunk.js.map": "/DashBoardSIA/static/js/2.ac30ee1b.chunk.js.map",
+    "index.html": "/DashBoardSIA/index.html",
+    "precache-manifest.65624ac206f647b693b258e805ea6aff.js": "/DashBoardSIA/precache-manifest.65624ac206f647b693b258e805ea6aff.js",
+    "service-worker.js": "/DashBoardSIA/service-worker.js",
+    "static/css/2.7a71a33d.chunk.css.map": "/DashBoardSIA/static/css/2.7a71a33d.chunk.css.map",
+    "static/css/main.d1b05096.chunk.css.map": "/DashBoardSIA/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.ac30ee1b.chunk.js.LICENSE.txt": "/DashBoardSIA/static/js/2.ac30ee1b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6e735e5b.js",
+    "static/css/2.7a71a33d.chunk.css",
+    "static/js/2.ac30ee1b.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.f9abc16a.chunk.js"
+  ]
+}
