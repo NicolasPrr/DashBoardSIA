@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Divider, Button, Row, Col, Card } from "antd";
+import { Divider, Row, Col, Card, Switch } from "antd";
 import TimeLine from "../componets/TimeLine";
 import CourseTable from "../componets/CourseTable";
 
@@ -15,20 +15,31 @@ import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
 class MainView extends Component {
-  PrintButton = () => {
-    return <Button type="primary"> Imprimir</Button>;
-  };
+  SwitchCourses = () => (
+    <div>
+      Con materias perdidas ?
+      <Switch onChange={e => this.changeLossCourses(e)} />
+    </div>
+  );
+  SwitchCredits = () => (
+    <div>
+      Con creditos perdidos ?
+      <Switch onChange={e => this.changeLossCredits(e)} />
+    </div>
+  );
   constructor(props) {
     super(props);
     this.state = {
       years: [],
       // periods: [],
       dataRadar: [],
-      current: 0
+      current: 0,
+      countCoursesLoss: false,
+      countCreditsLoss: false
     };
   }
   render() {
-    const currentCourses = this.props.periods[this.state.current].courses
+    const currentCourses = this.props.periods[this.state.current].courses;
     return (
       <div>
         <Divider />
@@ -64,8 +75,15 @@ class MainView extends Component {
               <Stats />
               <Row gutter={[20, 20]}>
                 <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                  <Card title="Materias  vistas por tipologia" size="small">
-                    <PieChart periods={this.props.periods} />
+                  <Card
+                    title="Materias  vistas por tipologia"
+                    size="small"
+                    extra={<this.SwitchCourses />}
+                  >
+                    <PieChart
+                      periods={this.props.periods}
+                      countCoursesLoss={this.state.countCoursesLoss}
+                    />
                   </Card>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 8 }}>
@@ -74,8 +92,15 @@ class MainView extends Component {
                   </Card>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                  <Card size="small" title="Cantidad de creditos por tipología">
-                    <PieChartCredits periods={this.props.periods} />
+                  <Card
+                    size="small"
+                    title="Cantidad de creditos por tipología"
+                    extra={<this.SwitchCredits />}
+                  >
+                    <PieChartCredits
+                      periods={this.props.periods}
+                      countCreditsLoss={this.state.countCreditsLoss}
+                    />
                   </Card>
                 </Col>
               </Row>
@@ -94,6 +119,12 @@ class MainView extends Component {
   }
   changeCurrent = e => {
     this.setState({ current: e - 1 });
+  };
+  changeLossCourses = e => {
+    this.setState({ countCoursesLoss: e });
+  };
+  changeLossCredits = e => {
+    this.setState({ countCreditsLoss: e });
   };
 }
 const mapStateToProps = state => ({

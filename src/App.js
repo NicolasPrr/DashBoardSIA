@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setPeriods, calculateAll } from "./redux/actions/period";
+import { setPeriods, calculateAll,setCredits } from "./redux/actions/period";
 import { Layout } from "antd";
 import Header from "./componets/Header";
 import Footer from "./componets/Footer";
@@ -55,13 +55,14 @@ class App extends React.Component {
     this.setState({ history: history }, () => {
       this.props.setPeriods(history.periods);
       this.props.calculateAll();
+      this.props.setCredits(history.requiredCredits)
       this.setState({ type: "malla" });
     });
   };
 }
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { setPeriods: setPeriods, calculateAll: calculateAll },
+    { setPeriods: setPeriods, calculateAll: calculateAll, setCredits: setCredits },
     dispatch
   );
 };

@@ -58,6 +58,11 @@ const periodReducer = (state = periods, action) => {
         ...state,
         periods: allPeriods
       };
+    case "SET_CREDITS":
+      return {
+        ...state,
+        requiredCredits: action.requiredCredits
+      };
     default:
       return {
         ...state

@@ -58,7 +58,7 @@ class CourseTable extends React.Component {
         key: "action",
         render: (text, record) => (
           <span>
-            <a href="#/">Editar</a>
+            {/* <a href="#/">Editar</a> */}
             <Divider type="vertical" />
             <Popconfirm
               title="Borrar?"

@@ -113,28 +113,29 @@ export function averagePerTopology(periods) {
 
   //L LIBRE ELECCIÓN
   //TRABAJO DE GRADO
-  for (var i = 0; i < periods.length; i++) {
+  for (let i = 0; i < periods.length; i++) {
     courses = periods[i].courses;
-    for (var j = 0; j < courses.length; j++) {
-      if (courses[j][7] === "L") {
+    for (let j = 0; j < courses.length; j++) {
+      const typology = courses[j][7];
+      if (typology === "L") {
         scorePerCredtis_L += courses[j][8] * parseFloat(courses[j][10]);
         creditsL += parseInt(courses[j][8]);
       }
 
-      if (courses[j][7] === "B") {
+      if (typology === "B") {
         scorePerCredtis_OF += courses[j][8] * parseFloat(courses[j][10]);
         creditsOF += parseInt(courses[j][8]);
       }
-      if (courses[j][7] === "O") {
+      if (typology === "O") {
         scorePerCredtis_OPF += courses[j][8] * parseFloat(courses[j][10]);
         creditsOPF += parseInt(courses[j][8]);
       }
 
-      if (courses[j][7] === "C") {
+      if (typology === "C") {
         scorePerCredtis_OD += courses[j][8] * parseFloat(courses[j][10]);
         creditsOD += parseInt(courses[j][8]);
       }
-      if (courses[j][7] === "T") {
+      if (typology === "T") {
         scorePerCredtis_OPD += courses[j][8] * parseFloat(courses[j][10]);
         creditsOPD += parseInt(courses[j][8]);
       }
@@ -168,31 +169,35 @@ export function parseObjects(array) {
   });
   return data;
 }
-export function getCoursesByType(periods) {
+export function getCoursesByType(periods, countLoss = false) {
   let scorePerCredtis_L = 0,
     scorePerCredtis_OF = 0,
     scorePerCredtis_OPF = 0,
     scorePerCredtis_OD = 0,
     scorePerCredtis_OPD = 0;
-  for (var i = 0; i < periods.length; i++) {
+  for (let i = 0; i < periods.length; i++) {
     const courses = periods[i].courses;
-    for (var j = 0; j < courses.length; j++) {
-      if (courses[j][7] === "L") {
-        scorePerCredtis_L++;
-      }
+    for (let j = 0; j < courses.length; j++) {
+      const grade = parseFloat(courses[j][10]);
+      const typology = courses[j][7];
+      if ((!countLoss && grade >= 3) || countLoss) {
+        if (typology === "L") {
+          scorePerCredtis_L++;
+        }
 
-      if (courses[j][7] === "B") {
-        scorePerCredtis_OF++;
-      }
-      if (courses[j][7] === "O") {
-        scorePerCredtis_OPF++;
-      }
+        if (typology === "B") {
+          scorePerCredtis_OF++;
+        }
+        if (typology === "O") {
+          scorePerCredtis_OPF++;
+        }
 
-      if (courses[j][7] === "C") {
-        scorePerCredtis_OD++;
-      }
-      if (courses[j][7] === "T") {
-        scorePerCredtis_OPD++;
+        if (typology === "C") {
+          scorePerCredtis_OD++;
+        }
+        if (typology === "T") {
+          scorePerCredtis_OPD++;
+        }
       }
     }
   }
@@ -204,31 +209,36 @@ export function getCoursesByType(periods) {
     dispOpt: scorePerCredtis_OPD
   };
 }
-export function getCredtisByType(periods) {
+export function getCredtisByType(periods, countLoss = false) {
   let scorePerCredtis_L = 0,
     scorePerCredtis_OF = 0,
     scorePerCredtis_OPF = 0,
     scorePerCredtis_OD = 0,
     scorePerCredtis_OPD = 0;
-  for (var i = 0; i < periods.length; i++) {
+  for (let i = 0; i < periods.length; i++) {
     const courses = periods[i].courses;
-    for (var j = 0; j < courses.length; j++) {
-      if (courses[j][7] === "L") {
-        scorePerCredtis_L += parseInt(courses[j][8]);
-      }
+    
+    for (let j = 0; j < courses.length; j++) {
+      const grade = parseFloat(courses[j][10]);
+      const typology = courses[j][7];
+      if ((!countLoss && grade >= 3) || countLoss) {
+        if (typology === "L") {
+          scorePerCredtis_L += parseInt(courses[j][8]);
+        }
 
-      if (courses[j][7] === "B") {
-        scorePerCredtis_OF += parseInt(courses[j][8]);
-      }
-      if (courses[j][7] === "O") {
-        scorePerCredtis_OPF += parseInt(courses[j][8]);
-      }
+        if (typology === "B") {
+          scorePerCredtis_OF += parseInt(courses[j][8]);
+        }
+        if (typology === "O") {
+          scorePerCredtis_OPF += parseInt(courses[j][8]);
+        }
 
-      if (courses[j][7] === "C") {
-        scorePerCredtis_OD += parseInt(courses[j][8]);
-      }
-      if (courses[j][7] === "T") {
-        scorePerCredtis_OPD += parseInt(courses[j][8]);
+        if (typology === "C") {
+          scorePerCredtis_OD += parseInt(courses[j][8]);
+        }
+        if (typology === "T") {
+          scorePerCredtis_OPD += parseInt(courses[j][8]);
+        }
       }
     }
   }
@@ -252,12 +262,12 @@ export function calculateAll(per) {
   let lost = {};
   let creditsPerScorePA = 0;
   let creditsPA = 0;
-  
+
   periods = [...per];
   //nota por tipologia (Electiva, obligatoria fundamental, optativa fundamental, disciplinar obligatoria y optativa disciplinar)
   //calculo del papi, pappa
 
-  for (var i = 0; i < periods.length; i++) {
+  for (let i = 0; i < periods.length; i++) {
     const PAPPI = calculatePAPPI(periods[i].courses);
     periods[i].PAPPI = PAPPI;
 
@@ -286,8 +296,8 @@ export function calculateAll(per) {
     { name: "Disciplinar", average: parseFloat(disciplinar) },
     { name: "Electiva", average: parseFloat(elective) }
   ];
-  return{
+  return {
     dataRadar: radar,
     periods: periods
-  }
+  };
 }

@@ -17,7 +17,7 @@ class Donut extends React.Component {
   render() {
     const { DataView } = DataSet;
     const { Html } = Guide;
-    const types = getCredtisByType(this.props.periods);
+    const types = getCredtisByType(this.props.periods, this.props.countCreditsLoss);
     console.log("types:", types);
     const data = [
       {
