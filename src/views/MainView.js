@@ -67,7 +67,7 @@ class MainView extends Component {
               </Col>
             </Row>
           </TabPane>
-          <TabPane tab="Analisis Nivo" key="3">
+          {/* <TabPane tab="Analisis Nivo" key="3">
             <Row>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ height: 250 }}>
                 <Line />
@@ -76,7 +76,7 @@ class MainView extends Component {
                 <Line />
               </Col>
             </Row>
-          </TabPane>
+          </TabPane> */}
           <TabPane tab="Stats" key="4">
             <div style={{ background: "#ECECEC", padding: "30px" }}>
               <Stats />

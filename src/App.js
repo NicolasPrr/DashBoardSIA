@@ -34,7 +34,6 @@ class App extends React.Component {
     return (
       <div>
         <Layout>
-          <Header />
           <Content>
             <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
               <Switcher
