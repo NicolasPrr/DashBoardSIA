@@ -11,6 +11,8 @@ import RadarChart from "../componets/biz/RadarChart";
 import PieChart from "../componets/biz/PieChart";
 import PieChartCredits from "../componets/biz/PieChartCredits";
 import Stats from "../componets/Stats";
+import Advance from "../componets/biz/Advance";
+import { getCredtisByType } from "../helpers/process";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
@@ -40,6 +42,11 @@ class MainView extends Component {
   }
   render() {
     const currentCourses = this.props.periods[this.state.current].courses;
+    const types = getCredtisByType(
+      this.props.periods,
+      this.state.countCreditsLoss
+    );
+    const typesOk = getCredtisByType(this.props.periods, false);
     return (
       <div>
         <Divider />
@@ -97,16 +104,18 @@ class MainView extends Component {
                     title="Cantidad de creditos por tipología"
                     extra={<this.SwitchCredits />}
                   >
-                    <PieChartCredits
-                      periods={this.props.periods}
-                      countCreditsLoss={this.state.countCreditsLoss}
-                    />
+                    <PieChartCredits types={types} />
                   </Card>
                 </Col>
               </Row>
               <Row gutter={[20, 20]}>
-                <Col>
-                  <Card title="">
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <Card title="Avance" size="small">
+                    <Advance types={typesOk} />
+                  </Card>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <Card size ="small">
                     <LineBiz periods={this.props.periods} />
                   </Card>
                 </Col>

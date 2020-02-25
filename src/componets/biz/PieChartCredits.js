@@ -11,13 +11,12 @@ import {
 } from "bizcharts";
 import DataSet from "@antv/data-set";
 
-import { getCredtisByType } from "../../helpers/process";
 
 class Donut extends React.Component {
   render() {
     const { DataView } = DataSet;
     const { Html } = Guide;
-    const types = getCredtisByType(this.props.periods, this.props.countCreditsLoss);
+    const types = this.props.types
     console.log("types:", types);
     const data = [
       {
