@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Divider, Row, Col, Card, Switch } from "antd";
+import {
+  Divider,
+  Row,
+  Col,
+  Card,
+  Switch,
+  Button,
+  Popconfirm,
+  message
+} from "antd";
 import TimeLine from "../componets/TimeLine";
 import CourseTable from "../componets/CourseTable";
 
@@ -66,6 +75,15 @@ class MainView extends Component {
                 />
               </Col>
             </Row>
+            <Popconfirm
+              title="Sure?"
+              onConfirm={() => {
+                localStorage.clear();
+                message.warning("Se ha borrado la información");
+              }}
+            >
+              <Button type="danger">Borrar información almacenada</Button>
+            </Popconfirm>
           </TabPane>
           {/* <TabPane tab="Analisis Nivo" key="3">
             <Row>
@@ -115,7 +133,7 @@ class MainView extends Component {
                   </Card>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                  <Card size ="small">
+                  <Card size="small">
                     <LineBiz periods={this.props.periods} />
                   </Card>
                 </Col>

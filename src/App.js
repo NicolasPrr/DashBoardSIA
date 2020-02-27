@@ -29,6 +29,11 @@ class App extends React.Component {
       periods: []
     };
   }
+  componentDidMount(){
+    if(localStorage.getItem('periods')!== null){
+      this.setState({type: 'malla'})
+    }
+  }
 
   render() {
     return (

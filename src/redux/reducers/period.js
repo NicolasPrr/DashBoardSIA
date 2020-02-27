@@ -11,29 +11,49 @@ function newPeriod(name) {
   };
 }
 
-const periods = {
-  periods: []
+const initState = {
+  periods:
+    localStorage.getItem("periods") !== null
+      ? JSON.parse(localStorage.getItem("periods"))
+      : [],
+  dataRadar:
+    localStorage.getItem("dataRadar") !== null
+      ? JSON.parse(localStorage.getItem("dataRadar"))
+      : undefined,
+  requiredCredits:
+    localStorage.getItem("requiredCredits") !== null
+      ? JSON.parse(localStorage.getItem("requiredCredits"))
+      : undefined
 };
 
-const periodReducer = (state = periods, action) => {
+const periodReducer = (state = initState, action) => {
   let period;
-  let allPeriods
+  let allPeriods;
+  // localStorage.setItem("periods", JSON.stringify(state.periods));
+  // localStorage.setItem("requiredCredits", JSON.stringify(state.periods));
   switch (action.type) {
     //add course to period
     case "ADD_PERIOD":
       period = newPeriod(action.period);
+      localStorage.setItem(
+        "periods",
+        JSON.stringify([...state.periods, period])
+      );
       return {
         ...state,
         periods: [...state.periods, period]
       };
     case "CALCULATE_ALL":
       const { periods, dataRadar } = calculateAll(state.periods);
+      localStorage.setItem("periods", JSON.stringify(periods));
+      localStorage.setItem("dataRadar", JSON.stringify(dataRadar));
       return {
         ...state,
         dataRadar: dataRadar,
         periods: periods
       };
     case "SET_PERIODS":
+      localStorage.setItem("periods", JSON.stringify(action.periods));
       return {
         ...state,
         periods: action.periods
@@ -43,7 +63,8 @@ const periodReducer = (state = periods, action) => {
       period = allPeriods[action.indexPeriod];
       period.courses = period.courses.filter(item => item[1] !== action.code);
 
-      allPeriods[action.indexPeriod] = {...period};
+      allPeriods[action.indexPeriod] = { ...period };
+      localStorage.setItem("periods", JSON.stringify(allPeriods));
       return {
         ...state,
         periods: allPeriods
@@ -51,14 +72,20 @@ const periodReducer = (state = periods, action) => {
     case "ADD_COURSE":
       allPeriods = [...state.periods];
       period = allPeriods[action.indexPeriod];
-      period.courses.push(action.course)
+      period.courses.push(action.course);
 
-      allPeriods[action.indexPeriod] = {...period};
+      allPeriods[action.indexPeriod] = { ...period };
+      localStorage.setItem("periods", JSON.stringify(allPeriods));
       return {
         ...state,
         periods: allPeriods
       };
     case "SET_CREDITS":
+      localStorage.setItem(
+        "requiredCredits",
+        JSON.stringify(action.requiredCredits)
+      );
+      console.log("test:" , action.requiredCredits)
       return {
         ...state,
         requiredCredits: action.requiredCredits
